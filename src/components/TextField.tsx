@@ -24,7 +24,7 @@ const TextInput = ({
 }: ITextInput) => {
     return (
         <div className={`flex flex-col mt-6 ` + classNameBox}>
-            <label className='text-gray-300 font-bold text-left'>
+            <label className='font-MLight text-white font-bold text-left mb-2'>
                 {label}
             </label>
             <input
@@ -37,8 +37,8 @@ const TextInput = ({
                 className={
                     `
                 border-2 
-                shadow appearance-none 
                 outline:none
+                shadow-md
                 focus:outline-none
                 text-gray-700
                 font-RMedium

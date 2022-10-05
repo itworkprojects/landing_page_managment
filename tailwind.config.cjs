@@ -7,10 +7,17 @@ module.exports = {
     extend: {
       colors:{
         primary: '#3361FF',
+        button_welcome:"#EADB2A"
       },
       width: {
         '100': '400px',
       }
+    },
+    fontFamily: {
+      MBold: ['Montserrat-Bold'],
+      MMedium: ['Montserrat-Medium'],
+      MRegular: ['Montserrat-Regular'],
+      MLight: ['Montserrat-Light'],
     },
   },
   plugins: [],
