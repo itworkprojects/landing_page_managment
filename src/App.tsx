@@ -3,9 +3,9 @@ import Navbar from './layouts/Navbar'
 import TextInput from './components/TextField'
 import ImagePerson from "./assets/Persons.png"
 import BottomImage from "./assets/BottomImage.png"
-import Itembox from "./components/ItemBox"
+import Itembox from './components/ItemBox'
+import ItemboxCourses from "./components/ItemBoxCourses"
 function App() {
-  const [count, setCount] = useState(0)
 
   const TitleLeader =()=>{
     return(
@@ -35,6 +35,22 @@ function App() {
     })
 }
 
+  const [value,setValue]=React.useState({
+    code:"51",
+    image: "https://flagcdn.com/w320/pe.png"
+  })
+  const [toogle, setToogle] = useState(false);
+  const [toogleItemBox, setToogleItemBox] = useState(false);
+
+
+  const establishValues=(item:any)=>{
+    setValue(item)
+    setToogleItemBox(false)
+    setForm({
+      ...form,["nacionality"]:item
+    })
+    // console.log(JSON.stringify(item))
+  }
 const data = [
   { id: 1, description: 'Mañana' },
   { id: 2, description: 'Tarde' },
@@ -42,8 +58,10 @@ const data = [
 
 ];
 
+
+
   return (
-    <div className="flex flex-col
+    <div className={`flex flex-col
     opacity-90 text-center relative
     bg-center
     bg-fixed
@@ -51,32 +69,34 @@ const data = [
     md:bg-repeat
     bg-[url('./assets/GradientFill.png')]
     w-full 
-    h-full
-    md:h-screen
-    ">
-          <Navbar/>
-          <div className='mt-14 md:mt-2 z-8'>
-            <TitleLeader/>
-          </div>
-          
+    ${toogle ? " overflow-y-hidden h-screen " : "overflow-auto md:h-screen"}
+   
+    `}>
+          <Navbar toogle={toogle} setToogle={setToogle}/>
+            <div className='mt-14 md:mt-2 z-8 '>
+              <TitleLeader/>
+            </div>
+            
     
           <div className='relative 
           mt-4
           flex 
           flex-col 
           md:right-80
-          my-4
+          my-8
           md:w-1/2 
           z-10
           text-center self-center'>
             <h1 className='text-orange-300 font-bold text-xl mx-4 md:text-3xl mt-4
              font-MLight'>Registrate y accede a nuestras ofertas en SAP</h1>
-            <form className='items-center  self-center relative justify-content-center w-3/4 md:w-auto '>
+            <form className='items-center  
+            self-center relative justify-content-center w-3/4 md:w-auto '>
           <div className='flex flex-col m-auto md:flex-row md:gap-12'>
             <TextInput
             placeholder="Primer Nombre"
             value={form.firstName}
             onChange={handleChange}
+            classNameInput={"w-full"}
             label={"Primer Nombre"}
             name={"firstName"}
             required
@@ -98,43 +118,48 @@ const data = [
             name={"email"}
             required
             />
-              <TextInput
-            placeholder="Tleofno de COntacto*"
-            value={form.email}
-            onChange={handleChange}
-            label={"Telefono de Concato "}
-            name={"phone"}
-            required
-            />
+              <Itembox
+              value={value}
+              toogle={toogleItemBox}
+              changeToogle={()=>setToogleItemBox(!toogleItemBox)}
+              defineValue={(item:any)=>establishValues(item)}
+              />
              <div className=' flex flex-col m-auto md:flex-row md:gap-12'>
-            <TextInput
+             <TextInput
             placeholder="Nacionalidad"
             value={form.nacionality}
+            classNameInput={"font-bold"}
             onChange={handleChange}
             label={"Nacionalidad"}
-            name={"Nacionalidad"}
+            name={"nacionality"}
+            disabled
             required
             />
-            <Itembox
+            <ItemboxCourses
               data={data}
-              name={'animal'}
-              value={form.animal}
+              required
+              name={'turn'}
+              value={data.turn}
               label={'Turno'}
               classNameGeneral={"mt-6 text-left"}
               classNameInput={"w-full md:w-[200px]"}
               defaultValue={'Seleccione Turno'}
               onChange={handleChange}
             />
+         
           </div>
           <button className='
             font-MBold
             cursor-pointer
             focus:outline-none
             px-4 py-2 rounded-full
-            mt-4
-            w-32
+            md:mt-8
+            mt-12
+            w-full
+            md:w-32
+
             bg-button_welcome
-          text-black font-bold shadow-md'>
+           font-bold shadow-md'>
             Enviar
           </button>
       </form>

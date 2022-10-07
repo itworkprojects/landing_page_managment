@@ -1,5 +1,5 @@
 import React from 'react'
-
+import Label from "./Label"
 type ITextInput = {
     placeholder: string
     value: string
@@ -9,6 +9,7 @@ type ITextInput = {
     required: boolean
     onChange: React.FormEventHandler<HTMLInputElement>
     classNameBox?: string
+    disabled?:boolean
     classNameInput?: string
 }
 const TextInput = ({
@@ -18,15 +19,16 @@ const TextInput = ({
     onChange,
     name,
     required,
+    disabled,
     value,
     classNameBox,
     classNameInput,
 }: ITextInput) => {
     return (
         <div className={`flex flex-col mt-6 ` + classNameBox}>
-            <label className='font-MLight text-white font-bold text-left mb-2'>
+            <Label>
                 {label}
-            </label>
+            </Label>
             <input
                 type={type}
                 placeholder={placeholder}
@@ -45,8 +47,12 @@ const TextInput = ({
                 bg-white
                 leading-tight
                 px-2 p-2 
-                rounded-2xl ` + classNameInput
+                rounded-2xl 
+                disabled:opacity-80
+                -z-40
+                ` + classNameInput
                 }
+                disabled={disabled}
             />
         </div>
     )
@@ -56,6 +62,7 @@ TextInput.defaultProps = {
     placeholder: 'Required placeholder',
     type: 'text',
     required: false,
+    disabled:false
 }
 
 export default TextInput

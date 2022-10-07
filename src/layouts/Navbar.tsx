@@ -5,43 +5,56 @@ import NavbarTopImage from "../assets/NavbarTopImage.png"
 import TopResponsive from "../assets/TopResponsive.png"
 import MenuResponsive from "../assets/MenuResponsive.png"
 import LogoCompany from "../assets/LogoCompany.png"
-const Navbar = () => {
+import DynamicIcon from "../components/DynamicIcon"
+const Navbar = ({toogle,setToogle}:any) => {
 
-    const [search, setSearch] = React.useState('');
 
     const ImageLogo =()=>{
         return(
             <div>
                 <img src={LogoCompany}
-                className="relative w-auto h-24 -z-45 "
+                className="relative w-auto h-16 md:h-24 -z-45 "
                 alt=""  />
             </div>
         )
     }
 
-    const Button =({children}:any)=>{
-        return(
-            <button 
-            className='px-2 py-2 bg-white 
-            rounded-lg
-            text-black font-bold'>
-                {children}
-            </button>
-        )
-    }
 
-    const NavLink =({text}:any)=>{
+    const NavLink =({text,onClick}:any)=>{
         return(
             <div className='mx-2'>
                 <li className='transition ease-in-out
                 font-MLight
                 delay-150
                 text-white font-bold text-2xl z-10'>
-                    {text}
+                    <a 
+                    onClick={onClick}
+                    className='cursor-pointer'>{text}</a>
                 </li>
             </div>
         )
     }   
+    const IconClose=()=>{
+        return(
+            <div className=' absolute top-12 inline-flex 
+            bg-gray-700
+            items-center px-2 py-2 
+        rounded-full shadow-xl cursor-pointer'>
+            <DynamicIcon
+                name="FaPlus"
+                onClick={()=>setToogle(!toogle)}
+                className=' 
+                rotate-45
+                text-xl text-white 
+                cursor-pointer
+                mt-1.5
+                w-8
+                h-8
+                '
+                />
+        </div>
+        )
+    }
 
     const BoxLink =()=>{
         return(
@@ -54,7 +67,6 @@ const Navbar = () => {
                     <NavLink text="Cursos"/>
                     <NavLink text="Blog"/>
                     <NavLink text="Contactos"/>
-                    <Button>Nuevo</Button>
                 </ul>
             </div>
         )
@@ -76,10 +88,9 @@ const Navbar = () => {
         )
     }
 
-    const [toogle,setToogle]=React.useState(false)
 
     return ( 
-        <nav className="relative z-0">   
+        <nav className="relative  "  >   
             <BoxImageTop/>
            <div  className="absolute
                 md:hidden  top-0 w-full 
@@ -87,59 +98,76 @@ const Navbar = () => {
                 ">
 
                 <img src={MenuResponsive}
-               
                 />
-                <span 
+
+                <DynamicIcon
+                name="FaBars"
                 onClick={()=>setToogle(!toogle)}
-                className='absolute top-0 text-xl text-white 
+                className='absolute top-12 text-xl text-white 
                 cursor-pointer
                 mt-1.5
-                font-bold right-0 mr-2'>Menú</span>
+                w-12
+                h-12
+                 right-0 mr-4'
+                />
+                
            </div>
            
-           <div className={ `absolute top-10 
-           duration-300 
-           ${toogle ? "block" : "hidden"}
-           right-0 
-           bg-gray-300 w-36  `}>
-                <ul>
-                
+           <div className={ `absolute 
+          duration-300
+           flex 
+           flex-col
+           w-full
+           h-screen
+           z-40
+           items-center
+           bg-gray-800
+           ${toogle ? " block" : "hidden"}
+             z-8 `}>
+                <IconClose/>
+                <ul className='w-full self-center  m-40 space-y-12'>
                         <a 
-                        className='bg-purple-500 
+                        className='
                         block
-                        px-2 py-2 
+                        px-2 py-2
+                        mx-10
                         font-MBold
                         text-white border-b
                         border-white'
                         href="www.facebook.com">Inicios</a>
                       <a 
-                        className='bg-purple-500 
+                        className='
                         block
                         px-2 py-2 
+                        mx-10
                         font-MBold
-                        text-white border-b
-                        border-white'
+                        text-white 
+                        border-b
+                        border-white
+                        '
                         href="www.facebook.com">Cursos</a>
                      <a 
-                        className='bg-purple-500 
+                        className='
                         block
                         px-2 py-2 
+                        mx-10
                         font-MBold
                         text-white border-b
                         border-white'
                         href="www.facebook.com">Blog</a>
                       <a 
-                        className='bg-purple-500 
+                        className='
                         block
                         px-2 py-2 
                         font-MBold
-                        text-white 
+                        mx-10
+                        text-white  border-b
                         border-white'
                         href="www.facebook.com">Contactos</a>
                 </ul>
            </div>
 
-            <div className='w-3/4 m-auto z-8'>
+            <div className='w-3/4 m-auto -z-8'>
                 <div className='mt-14 flex  justify-between items-center z-26'>
                 <ImageLogo/>
                 {/* <img src={Unknown}
